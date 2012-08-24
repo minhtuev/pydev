@@ -3,6 +3,7 @@ Description
 
 `pydev` find all python packages at specified path(s) and deploy
 that packages in "[development mode](http://packages.python.org/distribute/setuptools.html#development-mode)".
+
 So, packages deployed with `pydev` will be available for any Python module/script
 and it source code will be at original paths.
 
