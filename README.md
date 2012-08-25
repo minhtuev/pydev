@@ -26,7 +26,7 @@ Usage
       -h, --help  show this help message and exit
       --deps      install dependencies
       --scripts   install scripts
-      --inject    inject setuptools call (for modules without setuptools)
+      --inject    inject setuptools call (for packages without setuptools)
 
 Example
 =======
