@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 
 
 def development_deploy(paths, dependencies=False, scripts=False, method=None):
-    """Deploy Python packages in development mode."""
+    """Python packages deployment in development mode."""
     items = list(paths) if isinstance(paths, (list, tuple, set)) else [paths]
 
     if items:
@@ -59,11 +59,11 @@ def execute_from_command_line():
         print 'Finding packages at "{0}"...'.format(path)
         for root, dirs, files in os.walk(path):
             dirs[:] = [x for x in dirs if not x.startswith('.')]
-            for file_name in [x.lower() for x in files]:
+            for file_name in files:
                 file_name_lower = file_name.lower()
                 if file_name_lower == 'setup.py':
                     dirs[:] = []
-                    print 'Processing package "{0}"'.format(root)
+                    print 'Processing "{0}"'.format(root)
                     development_deploy(os.path.join(root, file_name),
                                        dependencies=arguments.deps,
                                        scripts=arguments.scripts)
