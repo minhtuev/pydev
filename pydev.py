@@ -5,7 +5,7 @@ from site import getuserbase, getusersitepackages
 from argparse import ArgumentParser
 
 
-def development_deploy(paths, dependencies=False, scripts=False, method=None):
+def development_deploy(paths, dependencies=False, scripts=False, inject_setuptools=False):
     """Python packages deployment in development mode."""
     items = list(paths) if isinstance(paths, (list, tuple, set)) else [paths]
 
@@ -28,7 +28,7 @@ def development_deploy(paths, dependencies=False, scripts=False, method=None):
                 arguments.append('--exclude-scripts')
 
             # Processing
-            if method == 'simple':
+            if not inject_setuptools:
                 subprocess.Popen([sys.executable] + arguments).wait()
             else:
                 handler = open(path, 'rb')
@@ -50,6 +50,8 @@ def execute_from_command_line():
                             help='install dependencies')
     arg_parser.add_argument('--scripts', action='store_true',
                             help='install scripts')
+    arg_parser.add_argument('--inject', action='store_true',
+                            help='inject setuptools call (for modules without setuptools)')
     arg_parser.add_argument('paths', metavar='path', nargs='+',
                             help='packages search path')
 
@@ -66,7 +68,8 @@ def execute_from_command_line():
                     print 'Processing "{0}"'.format(root)
                     development_deploy(os.path.join(root, file_name),
                                        dependencies=arguments.deps,
-                                       scripts=arguments.scripts)
+                                       scripts=arguments.scripts,
+                                       inject_setuptools=arguments.inject)
 
 
 if __name__ == '__main__':

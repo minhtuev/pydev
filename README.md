@@ -15,9 +15,9 @@ Installation
 
 Usage
 =====
-    usage: pydev [-h] [--deps] [--scripts] path [path ...]
+    usage: pydev [-h] [--deps] [--scripts] [--inject] path [path ...]
 
-    Deploy Python packages in development mode.
+    Python packages deployment in development mode.
 
     positional arguments:
       path        packages search path
@@ -26,6 +26,7 @@ Usage
       -h, --help  show this help message and exit
       --deps      install dependencies
       --scripts   install scripts
+      --inject    inject setuptools call (for modules without setuptools)
 
 Example
 =======
