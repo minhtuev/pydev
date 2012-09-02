@@ -16,7 +16,8 @@ def development_deploy(paths, dependencies=False, scripts=False, inject_setuptoo
         user_bin_path = os.path.join(user_base_path, 'bin')
 
         for path in items:
-            os.chdir(os.path.dirname(path))
+            package_path = os.path.dirname(path)
+            os.chdir(package_path)
 
             # Making arguments
             arguments = [path, 'develop']
@@ -31,6 +32,7 @@ def development_deploy(paths, dependencies=False, scripts=False, inject_setuptoo
             if not inject_setuptools:
                 subprocess.Popen([sys.executable] + arguments).wait()
             else:
+                sys.path.insert(0, '.')
                 handler = open(path, 'rb')
                 content = handler.read()
                 handler.close()
@@ -39,6 +41,7 @@ def development_deploy(paths, dependencies=False, scripts=False, inject_setuptoo
                 # Updating arguments and executing
                 sys.argv = arguments
                 exec(content)
+                sys.path[:] = sys.path[1:]
 
         # Go back to original path
         os.chdir(original_path)
