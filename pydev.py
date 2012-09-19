@@ -39,7 +39,7 @@ def development_deploy(paths, dependencies=False, scripts=False, inject_setuptoo
                 # Updating arguments, path and executing
                 sys.path.insert(0, '.')
                 sys.argv = arguments
-                exec(content)
+                exec(content, {'__file__': path})
                 sys.path[:] = sys.path[1:]
 
         # Go back to original path
